@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tree</title>
+    	<style type="text/css" class="csscreations">
+    		/* CSS */
+    		* {margi: 0; padding: 0;}
+    		.tree ul {
+    			padding-top: 20px;
+    			position: relative;
+    			transition: all 0.5s;
+    			-webkit-transition: all 0.5s;
+    			-moz-transition: all 0.5s;
+    		}
+
+    		.tree li {
+    			float: left;
+    			text-align: center;
+    			list-style-type: none;
+    			position: relative;
+    			padding: 20px 5px 0 5px;
+    			transition: all 0.5s;
+    			c all 0.5s;
+    			-moz-transition: all 0.5s;
+    		}
+
+    		.tree li::before, .tree li::after{
+    			content: '';
+    			position: absolute;
+    			top: 0;
+    			right: 50%;
+    			border-top: 1px solid #1a80c3;
+    		}
+
+    		/*移除左右兄弟节点*/
+    		.tree li:only-child::after, .tree li:only-child::before {
+    			display: none;
+    		}
+
+    		/*移除顶层子节点的位置*/
+    		.tree li:only-child { padding-top: 0;}
+
+    		/*移除第一个子节点的左链接和最后一个字节点的右链接*/
+    		.tree li:first-child::before, .tree li:last-child::after {
+    			border: 0 none;
+    		}
+
+    		/*将垂直连接器添加回最后的节点*/
+    		.tree li:last-child::before {
+    			border-right: 1px solid #1a80c3;
+    			border-radius: 0 5px 0 0;
+    			-webkit-border-radius:0 5px 0 0;
+    			-moz-border-radius:0 5px 0 0;
+    		}
+    		.tree li:first-child::after {
+    			border-radius: 5px 0 0 0;
+    			-webkit-border-radius:5px 0 0 0;
+    			-moz-border-radius: 5px 0 0 0;
+    		}
+
+    		/*从父节点添加向下的连接器*/
+    		.tree ul ul::before {
+    			content: '';
+    			position: absolute;
+    			top: 0;
+    			left: 50%;
+    			border-left: 1px solid #1a80c3;
+    			width: 0;
+    			height: 20px;
+    		}
+
+
+    		.tree li .child {
+    			text-decoration: none;
+    			color: #666;
+    			font-family: "微软雅黑";
+    			font-size: 16px;
+    			display: inline-block;
+
+    			border-radius: 5px;
+    			-webkit-border-radius: 5px;
+    			-moz-border-radius: 5px;
+
+    			transition: all 0.5s;
+    			-webkit-transition: all 0.5s;
+    			-moz-transition: all 0.5s;
+
+    		}
+
+    		/*悬停效果*/
+    		/*线条元素也应用悬停效果*/
+    		.tree li child {
+    			min-width: 150px;
+    			background: #1a80c3;
+    			color: #fff;
+    			border: 1px solid #1a80c3;   			
+    		}
+
+    		.tree li .child .child-data {
+    			height: 30px;
+    			background: #fff;
+    			color: #666;
+    			border-radius: 0 0 5px 5px;
+    		}
+    		
+
+    	</style>>
+    <!--引入ECharts文件-->
+    <script scr="echarts.min.js"></script>
+</head>
+<body>
+    <!-- 为Echarts 准备一个具备大小（宽高）的DOM-->
+    <div id="main" style="width: 600px; height: 400px;"></div>
+    <script type="text/javascript">
+    	// 基于准备好的dom, 初始化echarts实例
+    	var myCharts = echarts,init(document.getElementById('main')).setOption(option);
+
+    	// 指定图表的配置项和数据
+    	var option = {
+    		title: {
+				text: '第一个ECharts实例'
+			}
+
+			lengend: {
+				data: [{
+					name: '系列1'
+					// 强制设置图形为圆
+					icon: 'circle'
+					// 设置文本为红色
+					textStyle: {
+						color: 'red'
+					}
+				}]
+			}
+
+			xAxis: {
+				data:["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+			}
+
+			yAxis: {}
+
+			// 每个系列通过type决定自己的图表类型：
+			series: [{
+				name: '销量', // 系列名称
+				type: 'line', // 系列图表类型
+				data: [5, 20, 36, 10, 10, 20] // 系列中的数据内容
+			}]
+    	};
+			
+
+	// 使用刚指定的配置项和数据显示图表
+	myCharts.setOption(option);
+    </script>
+
+</body>
+</html>
