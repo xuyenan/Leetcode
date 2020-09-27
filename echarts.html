@@ -1,206 +1,212 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>tree</title>
-    	<style class="csscreations">
-    		/* CSS */
-    		* {margin: 0; padding: 0;}
+	<style class="csscreations">
+	/*Now the CSS*/
+	* {margin: 0; padding: 0;}
 
-    		.tree ul {
-    			padding-top: 20px;
-    			position: relative;
-    			transition: all 0.5s;
-    			-webkit-transition: all 0.5s;
-    			-moz-transition: all 0.5s;
-    		}
+	.tree ul {
+	 padding-top: 20px;
+	 position: relative;
+	 transition: all 0.5s;
+	 -webkit-transition: all 0.5s;
+	 -moz-transition: all 0.5s;
+	}
 
-    		.tree li {
-    			float: left;
-    			text-align: center;
-    			list-style-type: none;
-    			position: relative;
-    			padding: 20px 5px 0 5px;
-    			transition: all 0.5s;
-    			-webkit-transition: all 0.5s;
-    			-moz-transition: all 0.5s;
-    		}
+	.tree li {
+	 float: left;
+	 text-align: center;
+	 list-style-type: none;
+	 position: relative;
+	 padding: 20px 5px 0 5px;
 
-    		.tree li::before, .tree li::after{
-    			content: '';
-    			position: absolute;
-    			top: 0;
-    			right: 50%;
-    			border-top: 1px solid #1a80c3;
-                width: 50%; 
-                height: 20px;
-    		}
+	 transition: all 0.5s;
+	 -webkit-transition: all 0.5s;
+	 -moz-transition: all 0.5s;
+	}
 
-            .tree li::after{
-                right: auto; 
-                left: 50%;
-                border-left: 1px solid #1a80c3;
-            }
+	/*We will use ::before and ::after to draw the connectors*/
 
-    		/*移除左右兄弟节点*/
-    		.tree li:only-child::after, .tree li:only-child::before {
-    			display: none;
-    		}
+	.tree li::before, .tree li::after{
+	 content: '';
+	 position: absolute;
+	 top: 0;
+	 right: 50%;
+	 border-top: 1px solid #1a80c3;
+	 width:50%;
+	 height: 20px;
+	}
 
-    		/*移除顶层子节点的位置*/
-    		.tree li:only-child { padding-top: 0;}
+	.tree li::after{
+	 right: auto;
+	 left: 50%;
+	 border-left: 1px solid #1a80c3;
+	}
 
-    		/*移除第一个子节点的左链接和最后一个字节点的右链接*/
-    		.tree li:first-child::before, .tree li:last-child::after {
-    			border: 0 none;
-    		}
+	/*We need to remove left-right connectors from elements without
+	any siblings*/
+	.tree li:only-child::after, .tree li:only-child::before {
+	 display: none;
+	}
 
-    		/*将垂直连接器添加回最后的节点*/
-    		.tree li:last-child::before {
-    			border-right: 1px solid #1a80c3;
-    			border-radius: 0 5px 0 0;
-    			-webkit-border-radius:0 5px 0 0;
-    			-moz-border-radius:0 5px 0 0;
-    		}
-    		.tree li:first-child::after {
-    			border-radius: 5px 0 0 0;
-    			-webkit-border-radius:5px 0 0 0;
-    			-moz-border-radius: 5px 0 0 0;
-    		}
+	/*Remove space from the top of single children*/
+	.tree li:only-child{ padding-top: 0;}
 
-    		/*从父节点添加向下的连接器*/
-    		.tree ul ul::before {
-    			content: '';
-    			position: absolute;
-    			top: 0;
-    			left: 50%;
-    			border-left: 1px solid #1a80c3;
-    			width: 0;
-    			height: 20px;
-    		}
+	/*Remove left connector from first child and
+	right connector from last child*/
+	.tree li:first-child::before, .tree li:last-child::after{
+	 border: 0 none;
+	}
 
+	/*Adding back the vertical connector to the last nodes*/
+	.tree li:last-child::before{
+	 border-right: 1px solid #1a80c3;
+	 border-radius: 0 5px 0 0;
+	 -webkit-border-radius: 0 5px 0 0;
+	 -moz-border-radius: 0 5px 0 0;
+	}
 
-    		.tree li .child {
-    			text-decoration: none;
-    			color: #666;
-    			font-family: "微软雅黑";
-    			font-size: 16px;
-    			display: inline-block;
+	.tree li:first-child::after{
+	 border-radius: 5px 0 0 0;
+	 -webkit-border-radius: 5px 0 0 0;
+	 -moz-border-radius: 5px 0 0 0;
+	}
 
-    			border-radius: 5px;
-    			-webkit-border-radius: 5px;
-    			-moz-border-radius: 5px;
+	/*Time to add downward connectors from parents*/
+	.tree ul ul::before{
+	 content: '';
+	 position: absolute;
+	 top: 0;
+	 left: 50%;
+	 border-left: 1px solid #1a80c3;
+	 width: 0;
+	 height: 20px;
+	}
 
-    			transition: all 0.5s;
-    			-webkit-transition: all 0.5s;
-    			-moz-transition: all 0.5s;
+	.tree li .child{
+	 text-decoration: none;
+	 color: #666;
+	 font-family: "微软雅黑";
+	 font-size: 16px;
+	 display: inline-block;
 
-    		}
+	 border-radius: 5px;
+	 -webkit-border-radius: 5px;
+	 -moz-border-radius: 5px;
 
-    		/*悬停效果*/
-    		/*线条元素也应用悬停效果*/
-    		.tree li child {
-    			min-width: 150px;
-    			background: #1a80c3;
-    			color: #fff;
-    			border: 1px solid #1a80c3;   			
-    		}
+	 transition: all 0.5s;
+	 -webkit-transition: all 0.5s;
+	 -moz-transition: all 0.5s;
+	}
 
-    		.tree li .child .child-data {
-    			height: 30px;
-    			background: #fff;
-    			color: #666;
-    			border-radius: 0 0 5px 5px;
-    			margin-top: 10px;
-    		}
-    		
-    		.tree li .child-symbol{
-    			width: 30px;
-    			height: 30px;
-    			line-height: 30px;
-    			border: 1px solid #1fc19e;
-    			border-radius: 20px;
-    			color: #1fc19e;
-    			display: inline-block;
-    			font-size: 50px;
-    		}
+	/*Time for some hover effects*/
+	/*We will apply the hover effect the the lineage of the element also*/
+	.tree li .child{
+	 min-width:150px;
+	 background: #1a80c3;
+	 color: #fff;
+	 border: 1px solid #1a80c3;
+	}
 
-    		.tree li .child-multiply {
-    			width: 30px;
-    			height: 30px;
-    			line-height: 30px;
-    			border: 1px solid #1fc19e;
-    			border-radius: 20px;
-    			color: #1fc19e;
-    			display: inline-block;
-    			font-style: 30px;
-    		}
-    	</style>
+	.tree li .child .child-data{
+	 height:30px;
+	 background: #fff;
+	 color: #666;
+	 border-radius: 0px 0px 5px 5px;
+	 margin-top:10px;
+	}
+
+	.tree li .child-symbol{
+	 width:30px;
+	 height:30px;
+	 line-height:30px;
+	 border:1px solid #1fc19e;
+	 border-radius:20px;
+	 color:#1fc19e;
+	 display:inline-block;
+	 font-size:50px;
+	}
+	.tree li .child-multiply{
+	 width:30px;
+	 height:30px;
+	 line-height:30px;
+	 border:1px solid #1fc19e;
+	 border-radius:20px;
+	 color:#1fc19e;
+	 display:inline-block;
+	 font-size:30px;
+	}
+	/*Thats all. I hope you enjoyed it.
+	Thanks :)*/
+	</style>
 </head>
 <body>
-    <div class="tree">
-    	<ul>
-            <li>
-                <div class='child'>item1<div class='child-data'>160亿元</div></div>
-                <ul>
-                    <li>
-                        <div class='child'>item11<div class='child-data'>160亿元</div></div>
-                        <span class='child-symbol'>+</span>
-                        <ul>
-                            <li>
-                                <div class='child'>item21<div class='child-data'>160亿元</div></div>
-                                <span class='child-symbol'>+</span>
-                            </li>
-                            <li>
-                                <div class='child'>item22<div class='child-data'>160亿元</div></div>
-                                <ul>
-                                    <li>
-                                        <div class='child'>item31<div class='child-data'>160亿元</div></div>
-                                        <span class='child-symbol'>+</span>
-                                    </li>
-                                    <li>
-                                        <div class='child'>item32<div class='child-data'>160亿元</div></div>
-                                        <span class='child-symbol'>-</span>
-                                        <ul>
-                                            <li>
-                                                <div class='child'>item41<div class='child-data'>160亿元</div></div>
-                                                <span class='child-multiply'>×</span>
-                                            </li>
-                                            <li>
-                                                <div class='child'>item42<div class='child-data'>160亿元</div></div>
-                                                <ul>
-                                                    <li>
-                                                    <div class='child'>item51<div class='child-data'>160亿元</div></div>
-                                                    <span class='child-multiply'>×</span>
-                                                    </li>
-                                                        <li>
-                                                            <div class='child'>item52<div class='child-data'>160亿元</div></div>
-                                                        </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class='child'>item33<div class='child-data'>160亿元</div></div>
-                                        <span class='child-symbol'>+</span>
-                                    </li>
-                                    <li>
-                                        <div class='child'>item34<div class='child-data'>160亿元</div></div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <div class='child'>item12<div class='child-data'>160亿元</div></div>
-                        <span class='child-symbol'>-</span>
-                    </li>
-                    <li>
-                        <div class='child'>item13<div class='child-data'>160亿元</div></div>
-                    </li>
-                </ul>
-            </li> 
-        </ul>
-    </div>
+<div class="tree">
+ <ul>
+  <li>
+  <div class='child'>item1<div class='child-data'>160亿元</div></div>
+   <ul>
+    <li>
+     <div class='child'>item11<div class='child-data'>160亿元</div></div>
+     <span class='child-symbol'>+</span>
+     <ul>
+      <li>
+       <div class='child'>item21<div class='child-data'>160亿元</div></div>
+       <span class='child-symbol'>+</span>
+      </li>
+      <li>
+       <div class='child'>item22<div class='child-data'>160亿元</div></div>
+       <ul>
+      	<li>
+       	 <div class='child'>item31<div class='child-data'>160亿元</div></div>
+       	 <span class='child-symbol'>+</span>
+     	</li>
+      	<li>
+         <div class='child'>item32<div class='child-data'>160亿元</div></div>
+         <span class='child-symbol'>-</span>
+         <ul>
+      	  <li>
+       	   <div class='child'>item41<div class='child-data'>160亿元</div></div>
+       	   <span class='child-multiply'>×</span>
+     	  </li>
+      	  <li>
+           <div class='child'>item42<div class='child-data'>160亿元</div></div>
+           <ul>
+      	     <li>
+       	      <div class='child'>item51<div class='child-data'>160亿元</div></div>
+       	      <span class='child-multiply'>×</span>
+     	     </li>
+      	     <li>
+              <div class='child'>item52<div class='child-data'>160亿元</div></div>
+      	     </li>
+           </ul>
+      	  </li>
+         </ul>
+      	</li>
+      	<li>
+       	 <div class='child'>item33<div class='child-data'>160亿元</div></div>
+       	 <span class='child-symbol'>+</span>
+     	</li>
+      	<li>
+         <div class='child'>item34<div class='child-data'>160亿元</div></div>
+      	</li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+    <li>
+     <div class='child'>item12<div class='child-data'>160亿元</div></div>
+     <span class='child-symbol'>-</span>
+    </li>
+   	<li>
+     <div class='child'>item13<div class='child-data'>160亿元</div></div>
+    </li>
+   </ul>
+  </li>
+ </ul>
+</div>
 </body>
 </html>
+
