@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>tree</title>
-    	<style type="text/css" class="csscreations">
+    	<style class="csscreations">
     		/* CSS */
-    		* {margi: 0; padding: 0;}
+    		* {margin: 0; padding: 0;}
+
     		.tree ul {
     			padding-top: 20px;
     			position: relative;
@@ -21,7 +22,7 @@
     			position: relative;
     			padding: 20px 5px 0 5px;
     			transition: all 0.5s;
-    			c all 0.5s;
+    			-webkit-transition: all 0.5s;
     			-moz-transition: all 0.5s;
     		}
 
@@ -31,7 +32,15 @@
     			top: 0;
     			right: 50%;
     			border-top: 1px solid #1a80c3;
+                width: 50%; 
+                height: 20px;
     		}
+
+            .tree li::after{
+                right: auto; 
+                left: 50%;
+                border-left: 1px solid #1a80c3;
+            }
 
     		/*移除左右兄弟节点*/
     		.tree li:only-child::after, .tree li:only-child::before {
@@ -127,24 +136,71 @@
     			font-style: 30px;
     		}
     	</style>
-    <!--引入ECharts文件-->
-    <script scr="echarts.min.js"></script>
 </head>
 <body>
     <div class="tree">
     	<ul>
-    		<li>
-    			<div class="child">
-    				资产净收益率
-    				<div class="child-data">
-    				xx亿元
-    				</div>
-    			</div>
-    			<div class="child">
-    				
-    			</div>
-    		</li>
-    	</ul>
+            <li>
+                <div class='child'>item1<div class='child-data'>160亿元</div></div>
+                <ul>
+                    <li>
+                        <div class='child'>item11<div class='child-data'>160亿元</div></div>
+                        <span class='child-symbol'>+</span>
+                        <ul>
+                            <li>
+                                <div class='child'>item21<div class='child-data'>160亿元</div></div>
+                                <span class='child-symbol'>+</span>
+                            </li>
+                            <li>
+                                <div class='child'>item22<div class='child-data'>160亿元</div></div>
+                                <ul>
+                                    <li>
+                                        <div class='child'>item31<div class='child-data'>160亿元</div></div>
+                                        <span class='child-symbol'>+</span>
+                                    </li>
+                                    <li>
+                                        <div class='child'>item32<div class='child-data'>160亿元</div></div>
+                                        <span class='child-symbol'>-</span>
+                                        <ul>
+                                            <li>
+                                                <div class='child'>item41<div class='child-data'>160亿元</div></div>
+                                                <span class='child-multiply'>×</span>
+                                            </li>
+                                            <li>
+                                                <div class='child'>item42<div class='child-data'>160亿元</div></div>
+                                                <ul>
+                                                    <li>
+                                                    <div class='child'>item51<div class='child-data'>160亿元</div></div>
+                                                    <span class='child-multiply'>×</span>
+                                                    </li>
+                                                        <li>
+                                                            <div class='child'>item52<div class='child-data'>160亿元</div></div>
+                                                        </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class='child'>item33<div class='child-data'>160亿元</div></div>
+                                        <span class='child-symbol'>+</span>
+                                    </li>
+                                    <li>
+                                        <div class='child'>item34<div class='child-data'>160亿元</div></div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class='child'>item12<div class='child-data'>160亿元</div></div>
+                        <span class='child-symbol'>-</span>
+                    </li>
+                    <li>
+                        <div class='child'>item13<div class='child-data'>160亿元</div></div>
+                    </li>
+                </ul>
+            </li> 
+        </ul>
     </div>
 </body>
 </html>
