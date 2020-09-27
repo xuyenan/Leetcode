@@ -102,56 +102,49 @@
     			background: #fff;
     			color: #666;
     			border-radius: 0 0 5px 5px;
+    			margin-top: 10px;
     		}
     		
+    		.tree li .child-symbol{
+    			width: 30px;
+    			height: 30px;
+    			line-height: 30px;
+    			border: 1px solid #1fc19e;
+    			border-radius: 20px;
+    			color: #1fc19e;
+    			display: inline-block;
+    			font-size: 50px;
+    		}
 
-    	</style>>
+    		.tree li .child-multiply {
+    			width: 30px;
+    			height: 30px;
+    			line-height: 30px;
+    			border: 1px solid #1fc19e;
+    			border-radius: 20px;
+    			color: #1fc19e;
+    			display: inline-block;
+    			font-style: 30px;
+    		}
+    	</style>
     <!--引入ECharts文件-->
     <script scr="echarts.min.js"></script>
 </head>
 <body>
-    <!-- 为Echarts 准备一个具备大小（宽高）的DOM-->
-    <div id="main" style="width: 600px; height: 400px;"></div>
-    <script type="text/javascript">
-    	// 基于准备好的dom, 初始化echarts实例
-    	var myCharts = echarts,init(document.getElementById('main')).setOption(option);
-
-    	// 指定图表的配置项和数据
-    	var option = {
-    		title: {
-				text: '第一个ECharts实例'
-			}
-
-			lengend: {
-				data: [{
-					name: '系列1'
-					// 强制设置图形为圆
-					icon: 'circle'
-					// 设置文本为红色
-					textStyle: {
-						color: 'red'
-					}
-				}]
-			}
-
-			xAxis: {
-				data:["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-			}
-
-			yAxis: {}
-
-			// 每个系列通过type决定自己的图表类型：
-			series: [{
-				name: '销量', // 系列名称
-				type: 'line', // 系列图表类型
-				data: [5, 20, 36, 10, 10, 20] // 系列中的数据内容
-			}]
-    	};
-			
-
-	// 使用刚指定的配置项和数据显示图表
-	myCharts.setOption(option);
-    </script>
-
+    <div class="tree">
+    	<ul>
+    		<li>
+    			<div class="child">
+    				资产净收益率
+    				<div class="child-data">
+    				xx亿元
+    				</div>
+    			</div>
+    			<div class="child">
+    				
+    			</div>
+    		</li>
+    	</ul>
+    </div>
 </body>
 </html>
